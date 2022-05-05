@@ -14,28 +14,22 @@
              OpenPaneLength="200">
 
     <SplitView.Pane>
-      <Grid RowDefinitions="* auto">
-        <Button Click="openNewWindow" Content="Request" Grid.Row="1"/>        
-        
-        <TreeView Grid.Row="0">
+      <Grid RowDefinitions="auto *">
+        <Button Click="openNewWindow" Content="Request" Grid.Row="0" Width="200"/>        
+        <TreeView Grid.Row="1">
           <TreeView.DataTemplates>
-
           </TreeView.DataTemplates>
         </TreeView>
       </Grid>
     </SplitView.Pane>
-
     <Grid RowDefinitions="auto *">
-      <WrapPanel  Grid.Row="0">
-        <Button Content="+" Grid.Row="0"/>
-        <Button Content="-" Grid.Row="0"/>
-        <Button Content="V" Grid.Row="0"/>
-        <Button Content="X" Grid.Row="0"/>
+      <WrapPanel  Grid.Row="2">
+        <Button Content="+" Width="50" Grid.Row="0"/>
+        <Button Content="-" Width="50" Grid.Row="0"/>
+        <Button Content="V" Width="50" Grid.Row="0"/>
+        <Button Content="X" Width="50" Grid.Row="0"/>
       </WrapPanel>
-
-
     </Grid>
-    
   </SplitView>
 
 </Window>
