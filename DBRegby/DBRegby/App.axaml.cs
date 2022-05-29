@@ -22,7 +22,6 @@ namespace DBRegby
                     DataContext = new MainWindowViewModel(),
                 };
             }
-
             base.OnFrameworkInitializationCompleted();
         }
     }

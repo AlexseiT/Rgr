@@ -8,7 +8,6 @@ namespace DBRegby.Views
         public MainWindow()
         {
             InitializeComponent();
-
         }
     }
 }

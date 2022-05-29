@@ -20,10 +20,14 @@ namespace DBRegby.Models
                 switch (field)
                 {
                     case "Country": return Country;
-                    case "Team": return Team1;
+                    case "Team1": return Team1;
                 }
                 return null;
             }
+        }
+        public string Key()
+        {
+            return "Team1";
         }
         public virtual ICollection<CompetitionTeam> CompetitionTeams { get; set; }
         public virtual ICollection<Player> Players { get; set; }

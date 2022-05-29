@@ -39,9 +39,6 @@
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\PlayerTableView.axaml.cs">
-      <DependentUpon>PlayerTableView.axaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\GameTableView.axaml.cs">
       <DependentUpon>GameTableView.axaml</DependentUpon>
     </Compile>
@@ -51,11 +48,17 @@
     <Compile Update="Views\CompetitionTeamTableView.axaml.cs">
       <DependentUpon>CompetitionTeamTableView.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\RequestManagerView.axaml.cs">
+      <DependentUpon>RequestManagerView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\TeamTableView.axaml.cs">
       <DependentUpon>TeamTableView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\DataBaseView.axaml.cs">
       <DependentUpon>DataBaseView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PlayerTableView.axaml.cs">
+      <DependentUpon>PlayerTableView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

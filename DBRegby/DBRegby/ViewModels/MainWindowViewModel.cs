@@ -17,7 +17,7 @@ namespace DBRegby.ViewModels
     {
         private ViewModelBase page;
         private DataBaseViewModel ViewPage;
-
+        private RequestManagerViewModel requestManager;
         public ViewModelBase Page
         {
             set => this.RaiseAndSetIfChanged(ref page, value);
@@ -26,9 +26,16 @@ namespace DBRegby.ViewModels
         public MainWindowViewModel()
         {
             ViewPage = new DataBaseViewModel();
+            requestManager = new RequestManagerViewModel(ViewPage);
             Page = ViewPage;
         }
-        public void OpenDBViewer()
+
+        public void OpenRequest()
+        {
+            Page = requestManager;
+        }
+
+        public void OpenDB()
         {
             Page = ViewPage;
         }

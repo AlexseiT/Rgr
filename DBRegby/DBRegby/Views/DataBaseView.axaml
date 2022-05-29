@@ -4,18 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
              x:Class="DBRegby.Views.DataBaseView">
-
 	
-		<Grid RowDefinitions="auto *">
-			<Button Content="Request" Grid.Row="0" Grid.Column="0" Width="200"/>
-			<TabControl TabStripPlacement="Left" Grid.Row="1" Grid.Column="0" Items="{Binding Tables}">
-				
-				<TabControl.ItemTemplate>
-					<DataTemplate>
+			<Grid RowDefinitions="auto *">
+			<WrapPanel Background="#31323A">
+			<Button Content="Request" HorizontalContentAlignment="Center" Foreground="White" Command="{Binding $parent[Window].DataContext.OpenRequest}" FontSize="30" Grid.Row="0" Width="174" Height="50" Background="#4FACEF"/>
+			<Button Foreground="White" HorizontalContentAlignment="Center" FontSize="30" Content="-" Command="{Binding DeleteSelectedItem}" Grid.Row="0" Grid.Column="2"  Width="50" Height="50" Background="#EF4F4F"/>
+			</WrapPanel>
+
+			<TabControl TabStripPlacement="Left" Grid.Row="1" Grid.Column="0" Items="{Binding AllTables}" SelectionChanged="SelectedTabcontrol" Background="#4FACEF">
+
+				<TabControl.ItemTemplate >
+					<DataTemplate >
 						<StackPanel Orientation="Vertical">
-							<TextBlock Text="{Binding Title}"/>
+							<TextBlock Foreground="White" Text="{Binding Title}" FontSize="14"/>
 						</StackPanel>
 					</DataTemplate>
+					
 				</TabControl.ItemTemplate>
 
 				<TabControl.ContentTemplate>
@@ -23,8 +27,8 @@
 						<UserControl Content="{Binding TableView}"/>
 					</DataTemplate>
 				</TabControl.ContentTemplate>
-			</TabControl>
 
+			</TabControl>
 		</Grid>
 		
 		

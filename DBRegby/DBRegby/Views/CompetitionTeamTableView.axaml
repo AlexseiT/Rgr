@@ -4,5 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
              x:Class="DBRegby.Views.CompetitionTeamTableView">
-	<DataGrid Name="thisTable" Items="{Binding thisTable}"  AutoGenerateColumns="True"/>
+	<Grid RowDefinitions="auto *">
+		<WrapPanel Background="#31323A">
+			<Button HorizontalContentAlignment="Center" FontSize="30" Foreground="White" Content="+" Command="{Binding AddField}" Grid.Row="0" Grid.Column="1" Width="50" Height="50" Background="#8CE037"/>
+			<Button HorizontalContentAlignment="Center" FontSize="30" Foreground="White" Content="v" Command="{Binding Save}" Grid.Row="0" Grid.Column="3" Width="50" Height="50" Background="#8CE037"/>
+		</WrapPanel>
+		<DataGrid Name="thisTable" Items="{Binding thisTable}" Grid.Row="1" AutoGeneratingColumn="Delete" AutoGenerateColumns="True" Background="White"/>
+	</Grid>
 </UserControl>

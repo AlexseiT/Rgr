@@ -21,6 +21,10 @@ namespace DBRegby.Models
                 return null;
             }
         }
+        public string Key()
+        {
+            return "Competition";
+        }
         public virtual Competition CompetitionNavigation { get; set; } = null!;
         public virtual Team TeamNavigation { get; set; } = null!;
     }

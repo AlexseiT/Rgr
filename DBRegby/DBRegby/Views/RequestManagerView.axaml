@@ -1,0 +1,165 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
+             x:Class="DBRegby.Views.RequestManagerView">
+	
+	
+	<Grid RowDefinitions="auto, auto, *, auto, *, auto, *, auto, auto, auto" ColumnDefinitions="*,0.05*,*" Background="#4FACEF">
+		<!-- Panel -->
+		
+		<WrapPanel Background="#31323A"  Grid.Row="0" Grid.ColumnSpan="3" >
+			<Button Foreground="White" Content="Back" Click="Back" Grid.Row="0" Grid.Column="0" Width="50" Height="50" Background="#4FACEF"/>
+			<Button Name="ButtonRequest" Click="AddNewRequest" Foreground="White" Content="v" Grid.Row="0" Grid.Column="1" Width="50" Height="50" Background="#8CE037" HorizontalContentAlignment="Center"/>
+		</WrapPanel>
+		
+		<!-- Select Tables -->
+		
+		<Label Grid.Row="1" HorizontalContentAlignment="Center" Background="#4FACEF" Foreground="White">Select Tables</Label>
+		<ListBox Name="TableList" Grid.Row="2" Grid.Column="0" Items="{Binding Tables}" IsEnabled="{Binding CheckTableSelect}" SelectionChanged="TableSelected" SelectionMode="Multiple" >
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding Title}"/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		
+		<!-- Columns Tables -->
+		<Label Grid.Row="3" HorizontalContentAlignment="Center" Background="#4FACEF" Foreground="White">Columns Tables</Label>
+		<ListBox Name="TablesColumnsList" Grid.Row="4" Grid.Column="0" SelectionChanged="ColumnSelected" Items="{Binding ColumnList}" SelectionMode="Multiple" >
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel>
+						<TextBlock Text="{Binding}"/>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+		<!-- Group Tables -->
+		<Label Grid.Row="5" HorizontalContentAlignment="Center" Background="#4FACEF" Foreground="White">Group Tables</Label>
+		<ListBox Name="GroupTable" Grid.Row="6" Grid.Column="0" Items="{Binding SelectedColumns}" SelectionChanged="GroupColumnSelected"/>
+
+
+
+		<!--Your Request Block -->
+		<TextBox  Grid.Row="7" Name="RequestTitle" Watermark="Enter Name Request" KeyUp="ChangedRequest" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+		<Label Grid.Row="8" HorizontalContentAlignment="Center" Background="#C4C4C4" Foreground="Black">Your Request</Label>
+		<TabControl Grid.Row="9" Grid.Column="0" Items="{Binding AllTables}" Background="White" >
+			<TabControl.ItemTemplate >
+				<DataTemplate >
+					<StackPanel Orientation="Horizontal" IsVisible="{Binding checkTable}">
+						<TextBlock Foreground="Black" Text="{Binding Title}" FontSize="12" />
+						<Button Content="x" Click="DeleteRequest" FontSize="10" Background="#EF4F4F"/>
+					</StackPanel>
+				</DataTemplate>
+			</TabControl.ItemTemplate>
+		</TabControl>
+
+		<!--Filter -->
+		<Label Grid.Column="2" Grid.Row="1" HorizontalContentAlignment="Center" Background="#4FACEF" Foreground="White">Select Filter</Label>
+		<Grid Grid.Row="2" Grid.Column="2" Grid.RowSpan="3">
+		<Expander VerticalContentAlignment="Stretch">
+			
+			<Grid RowDefinitions="*, 40" ColumnDefinitions="*">
+				
+				<DataGrid Grid.Row="0" Grid.Column="0" Name="FlterList" Items="{Binding Filters}" CanUserReorderColumns="False" Background="White">
+					
+					<DataGrid.Columns>
+						<DataGridTemplateColumn Header="And,Or" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBox Text="{Binding BoolOper}" IsReadOnly="True"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						
+						<DataGridTemplateColumn Header="Changed Column" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Name="FilterColumns" Items="{Binding Columns}" SelectionChanged="ComboBoxChanged" HorizontalAlignment="Stretch"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						
+						<DataGridTemplateColumn Header="Condition" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Name="FilterOperators" Items="{Binding AllOperators}" SelectionChanged="ComboBoxChanged" HorizontalAlignment="Stretch"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						
+						<DataGridTemplateColumn Header="Value" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBox Name="FilterValue" Text="{Binding Filtervalue}" Watermark="{Binding Example}" IsEnabled="{Binding InputValueSupport}" />
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+					
+				</DataGrid>
+				
+				<Grid Grid.Row="1" Grid.Column="0" ColumnDefinitions="auto, auto, auto">
+					
+					<Button Name="and" IsEnabled="False" Click="AddAnd" CommandParameter="Default" Content="And" Grid.Row="0" Grid.Column="0"/>
+					<Button Name="or"  IsEnabled="False" Click="AddOr" CommandParameter="Default" Content="Or" Grid.Row="0" Grid.Column="1"/>
+					<Button Name="pop" IsEnabled="False" Click="Popback" CommandParameter="Default" Content="Delete the last one" Grid.Row="0" Grid.Column="2"/>
+					
+				</Grid>
+				
+			</Grid>
+			
+		</Expander>
+		</Grid>
+		<!--Group Filter -->
+		<Label Grid.Column="2" Grid.Row="5" HorizontalContentAlignment="Center" Background="#4FACEF" Foreground="White">Select Group Filter</Label>
+		<Grid Grid.Row="6" Grid.Column="2" Grid.RowSpan="3">
+		<Expander VerticalContentAlignment="Stretch">
+			<Grid RowDefinitions="*, 40" ColumnDefinitions="*">
+				<DataGrid Grid.Row="0" Grid.Column="0" Name="GroupFlterList" Items="{Binding GroupFilters}" CanUserReorderColumns="False" Background="White">
+					<DataGrid.Columns>
+						<DataGridTemplateColumn Header="And,Or" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBox Text="{Binding BoolOper}" IsReadOnly="True"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Column" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Name="GroupFilterColumns" Items="{Binding Columns}" SelectionChanged="ComboBoxChanged" HorizontalAlignment="Stretch"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Condition" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Name="GroupFilterOperators" Items="{Binding AllOperators}" SelectionChanged="ComboBoxChanged" HorizontalAlignment="Stretch"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Value" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBox Name="GroupFilterValue" Text="{Binding Filtervalue}" Watermark="{Binding Example}" IsEnabled="{Binding InputValueSupport}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+				
+				<Grid Grid.Row="1" Grid.Column="0" RowDefinitions="*" ColumnDefinitions="auto, auto, auto">
+					<Button Name="andGroup"  IsEnabled="False" Click="AddAnd"	CommandParameter="Group" Content="And" Grid.Row="0" Grid.Column="0"/>
+					<Button Name="orGroup"   IsEnabled="False" Click="AddOr"	CommandParameter="Group" Content="Or" Grid.Row="0" Grid.Column="1"/>
+					<Button Name="popGroup"  IsEnabled="False" Click="Popback"	CommandParameter="Group" Content="Delete the last one" Grid.Row="0" Grid.Column="2"/>
+				</Grid>
+			</Grid>
+		</Expander>
+		</Grid>
+</Grid>
+	
+</UserControl>

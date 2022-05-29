@@ -11,6 +11,7 @@ namespace DBRegby.Models
         {
         }
 
+
         public RegbyDataBaseContext(DbContextOptions<RegbyDataBaseContext> options)
             : base(options)
         {
@@ -89,7 +90,7 @@ namespace DBRegby.Models
 
                 entity.Property(e => e.DropGoals).HasColumnName("Drop Goals");
 
-                entity.Property(e => e.Player1).HasColumnName("Player");
+                entity.Property(e => e.Players).HasColumnName("Player");
 
                 entity.Property(e => e.PointsFor).HasColumnName("Points For");
 

@@ -7,7 +7,7 @@ namespace DBRegby.Models
     {
         public double Id { get; set; }
         public string? Team { get; set; }
-        public string? Player1 { get; set; }
+        public string? Players { get; set; }
         public long? Appearances { get; set; }
         public long? TestCaps { get; set; }
         public long? Tries { get; set; }
@@ -24,7 +24,7 @@ namespace DBRegby.Models
                 {
                     case "Id": return Id;
                     case "Team": return Team;
-                    case "Player": return Player1;
+                    case "Player": return Players;
                     case "Appearances": return Appearances;
                     case "TestCaps": return TestCaps;
                     case "Tries": return Tries;
@@ -35,6 +35,10 @@ namespace DBRegby.Models
                 }
                 return null;
             }
+        }
+        public string Key()
+        {
+            return "Id";
         }
         public virtual Team? TeamNavigation { get; set; }
     }

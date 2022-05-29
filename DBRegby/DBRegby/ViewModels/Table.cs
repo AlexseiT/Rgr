@@ -16,41 +16,36 @@ namespace DBRegby.ViewModels
     {
         private string title;
         public bool checkTable { get; }
-        public Dictionary<string, List<object?>> tableValues { get; }
-        public ObservableCollection<string> fields { get; set; }
-        private ViewModelBase thisTableView;
+        public List<Dictionary<string, object?>> tableValues { get; }
+        public string Key { get; set; }
 
-        public Table(string title, bool checkTable, ViewModelBase thisTableView, ObservableCollection<string> fields)
+        private ViewModelBase thisTableView;
+        public Table(string title, bool checkTable, ViewModelBase ThisTableView, ObservableCollection<string> Fields)
         {
 
-            this.title = title;
-
+            this.title = title;      
             this.checkTable = checkTable;
-
-            this.thisTableView = thisTableView;
-
-            this.fields = fields;
-
-            tableValues = new Dictionary<string, List<object?>>();
-
+            thisTableView = ThisTableView;
+            fields = Fields;
+            tableValues = new List<Dictionary<string, object?>>();
             dynamic myTable = TableView.getThisTable();
 
             if (myTable != null)
             {
-                foreach (string field in this.fields)
+                Key = myTable[0].Key();
+                for (int j = 0; j < myTable.Count; j++)
                 {
-                    tableValues.Add(field, new List<object?>() { this.title + ": " + field });
-                }
-                for (int i = 0; i < tableValues.Count; i++)
-                {
-                    foreach (string field in this.fields)
+                    Dictionary<string, object?> tmp = new Dictionary<string, object?>();
+                    foreach (string prop in fields)
                     {
-                        for (int j = 0; j < myTable.Count; j++)
-                        {
-                            tableValues[field].Add(myTable[j][field]);
-                        }
+                        tmp.Add(prop, myTable[j][prop]);
                     }
+                    tableValues.Add(tmp);
                 }
+            }
+            else if (checkTable)
+            {
+                  tableValues = TableView.getRowsThisTable();
             }
         }
         public string Title
@@ -63,5 +58,11 @@ namespace DBRegby.ViewModels
             get {return thisTableView;}
             set {thisTableView = value;}
         }
-    }
+        public ObservableCollection<string> fields { get; set; }
+        public object? getItem()
+        {
+            return TableView.Item;
+        }
+
+    }   
 }

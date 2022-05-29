@@ -9,6 +9,7 @@ using DBRegby.Models;
 using Microsoft.Data.Sqlite;
 using System.IO;
 using System;
+using System.Collections.Specialized;
 
 namespace DBRegby.ViewModels
 {
@@ -20,14 +21,26 @@ namespace DBRegby.ViewModels
             get { return table; }
             set { table = value; }
         }
-        public PlayerTableViewModel(ObservableCollection<Player> Collection)
+        RegbyDataBaseContext DataBase;
+        public PlayerTableViewModel(ObservableCollection<Player> Collection, RegbyDataBaseContext DataBase)
         {
+            this.DataBase = DataBase;
             thisTable = Collection;
+            Item = new object();
         }
 
         public override ObservableCollection<Player> getThisTable()
         {
             return thisTable;
+        }
+        public void Save()
+        {
+            DataBase.SaveChanges();
+        }
+
+        public void AddField()
+        {
+            thisTable.Add(new Player { Id = 0});
         }
     }
 }

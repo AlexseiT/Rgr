@@ -22,7 +22,7 @@ namespace DBRegby.Models
             {
                 switch (field)
                 {
-                    case "Competition": return Competition1;
+                    case "Competition1": return Competition1;
                     case "Teams": return Teams;
                     case "Games": return Games;
                     case "StartDate": return StartDate;
@@ -30,6 +30,10 @@ namespace DBRegby.Models
                 }
                 return null;
             }
+        }
+        public string Key()
+        {
+            return "Competition1";
         }
         public virtual ICollection<CompetitionTeam> CompetitionTeams { get; set; }
         public virtual ICollection<Game> GamesNavigation { get; set; }

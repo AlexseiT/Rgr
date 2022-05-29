@@ -7,7 +7,8 @@
         x:Class="DBRegby.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="DBRegby" 
-		Content="{Binding Page}">
+		Content="{Binding Page}"
+		Width="900">
 	
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
